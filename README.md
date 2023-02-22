@@ -1,3 +1,2 @@
 # kerry-stedi-analytics
 This is a project for Udacity Nanodegree.
-More to be add...
