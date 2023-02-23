@@ -1,4 +1,4 @@
-CREATE EXTERNAL TABLE `accelerometer_landing`(
+CREATE EXTERNAL TABLE `accelerometer_trusted`(
   `user` string COMMENT 'from deserializer', 
   `timestamp` bigint COMMENT 'from deserializer', 
   `x` float COMMENT 'from deserializer', 
@@ -6,11 +6,17 @@ CREATE EXTERNAL TABLE `accelerometer_landing`(
   `z` float COMMENT 'from deserializer')
 ROW FORMAT SERDE 
   'org.openx.data.jsonserde.JsonSerDe' 
+WITH SERDEPROPERTIES ( 
+  'case.insensitive'='TRUE', 
+  'dots.in.keys'='FALSE', 
+  'ignore.malformed.json'='FALSE', 
+  'mapping'='TRUE') 
 STORED AS INPUTFORMAT 
   'org.apache.hadoop.mapred.TextInputFormat' 
 OUTPUTFORMAT 
   'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat'
 LOCATION
-  's3://kerry-pj3-stedi-lakehouse/accelerometer/landing/'
+  's3://kerry-pj3-stedi-lakehouse/accelerometer/trusted'
 TBLPROPERTIES (
-  'classification'='json')
+  'classification'='json', 
+  'transient_lastDdlTime'='1677129203')
